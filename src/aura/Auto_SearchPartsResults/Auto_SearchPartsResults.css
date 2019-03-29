@@ -1,9 +1,0 @@
-.THIS .my-style-no-label .slds-form-element__label{
-    display : none;
-    visibility : hidden;
-}
-.THIS .slds-input {
-    width: 100px;
-    padding-right: 0;
-    display: inline-block;
-}

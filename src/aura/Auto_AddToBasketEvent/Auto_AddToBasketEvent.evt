@@ -1,3 +1,0 @@
-<aura:event type="APPLICATION" description="Auto_AddToBasketEvent">
-    <aura:attribute name="productId" type="String"/>
-</aura:event>

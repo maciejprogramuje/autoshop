@@ -1,9 +1,0 @@
-.THIS .my-style-item{
-    width: 23em;
-    background-color: #f5f7fa;
-    opacity: 0.8;
-}
-.THIS .my-hover:hover {
-    box-shadow: 0 0 1px red inset;
-    opacity: 1;
-}
