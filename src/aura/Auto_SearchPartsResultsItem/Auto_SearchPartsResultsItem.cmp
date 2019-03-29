@@ -1,0 +1,64 @@
+<aura:component description="Auto_SearchPartsResultsItem"
+                implements="force:hasRecordId"
+                access="global"
+                controller="Auto_SearchPartsResultsItem">
+
+    <aura:attribute name="record" type="Object"/>
+    <aura:attribute name="simpleRecord" type="Object"/>
+    <aura:attribute name="recordError" type="String"/>
+
+    <aura:attribute name="partPrice" type="Decimal"/>
+
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{!c.init}"/>
+
+    <force:recordData aura:id="recordLoader"
+                      recordId="{!v.recordId}"
+                      layoutType="FULL"
+                      targetFields="{!v.simpleRecord}"
+                      targetError="{!v.recordError}"  />
+
+    <!-- Display a header with details about the record -->
+    <div class="slds-p-around--small">
+        <a href="{! $Site.siteUrlPrefix + '/detail/' + v.simpleRecord.Id}"
+            class="slds-text-link--reset"
+            onclick="{!c.clickShowDetails}">
+
+            <div class="slds-p-around_small my-style-item my-hover" role="banner">
+
+                <p class="slds-text-heading--large slds-truncate">{!v.simpleRecord.Name}</p>
+
+                <p class="slds-text-heading--medium">Lowest price:
+                    <lightning:formattedNumber value="{!v.partPrice}" style="currency" currencyCode="EUR"/>
+                </p>
+
+                <div class="slds-p-top--small" style="width: 100%; text-align: center;">
+
+                    <aura:if isTrue="{!v.simpleRecord.Image_Profile_URL__c}">
+                        <img src="{!v.simpleRecord.Image_Profile_URL__c}"
+                             style="display: inline-block; width: 181px; height: 181px;"/>
+                    </aura:if>
+
+                    <aura:if isTrue="{!not(v.simpleRecord.Image_Profile_URL__c)}">
+                        <div style="{!'background-image:url(' + $Resource.Auto_No_Photo + '); display: inline-block; width: 181px; height: 181px;'}"></div>
+                    </aura:if>
+
+                </div>
+            </div>
+        </a>
+    </div>
+
+
+    <!-- Display Lightning Data Service errors, if any -->
+    <aura:if isTrue="{!not(empty(v.recordError))}">
+        <div class="recordError">
+            <ui:message title="Error" severity="error" closable="true">
+                    {!v.recordError}
+            </ui:message>
+        </div>
+    </aura:if>
+
+    <c:Auto_ShowToast aura:id="toast"/>
+
+</aura:component>
