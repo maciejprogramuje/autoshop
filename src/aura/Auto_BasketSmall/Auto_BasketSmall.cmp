@@ -1,0 +1,116 @@
+<aura:component description="Auto_BasketSmall"
+                implements="forceCommunity:availableForAllPageTypes"
+                access="global"
+                controller="Auto_BasketSmall">
+
+    <aura:attribute name="products"
+                    type="List"/>
+
+    <aura:attribute name="isBasketSmallVisible"
+                    type="Boolean"
+                    default="false"/>
+
+    <aura:attribute name="productSelected"
+                    type="String"/>
+
+    <aura:handler name="init"
+                  action="{!c.refresh}"
+                  value="{!this}"/>
+
+    <aura:handler event="c:Auto_AddToBasketEvent"
+                  action="{!c.refresh}"/>
+
+    <aura:handler event="c:Auto_RemoveFromBasketEvent"
+                  action="{!c.refresh}"/>
+
+    <aura:handler event="c:Auto_MakeOrderEvent"
+                  action="{!c.refresh}"/>
+
+
+    <div id="basket_container"
+         style="position: fixed; top: 21em; right: 0; z-index: 1000; background-color: transparent;">
+
+        <div id="basket_icon"
+             class="slds-p-horizontal--medium"
+             onclick="{!c.clickShowBasketContainer}">
+
+            <lightning:icon iconName="action:quote"
+                            alternativeText="Approved"
+                            size="large"
+                            class="slds-p-around--medium my-hover"/>
+        </div>
+
+        <div id="basket_inner"
+             style="display: none;"
+             class="slds-p-around--small">
+
+            <div>
+
+                <aura:if isTrue="{!not(empty(v.products))}">
+
+                    <p style="font-weight: 600; text-align: left; font-size: 16px;">Your order list:</p>
+
+                    <aura:iteration items="{!v.products}"
+                                    var="product">
+
+                        <div class="slds-grid">
+
+                            <a href="{! $Site.siteUrlPrefix + '/detail/' + product.Product2Id}"
+                               class="slds-col slds-size--3-of-12 slds-m-horizontal--small slds-truncate"
+                               data-index="{!product.Product2Id}"
+                               onclick="{!c.setSessionStorageRecordId}">{!product.Product2.Name}
+                            </a>
+
+                            <span class="slds-col slds-size--1-of-12 slds-m-horizontal--small slds-text-align--right">{!product.Quantity} pcs.</span>
+
+                            <span class="slds-col slds-size--2-of-12 slds-m-horizontal--small slds-text-align--right">
+
+                                <lightning:formattedNumber value="{!product.TotalPrice}"
+                                                           style="currency"
+                                                           currencyCode="EUR"/>
+                            </span>
+
+                            <span class="slds-col slds-size--2-of-12 slds-m-horizontal--small slds-text-align--right">(
+                                <lightning:formattedNumber value="{!product.UnitPrice}"
+                                                           style="currency"
+                                                           currencyCode="EUR"/>
+                                per pcs.)
+                            </span>
+                        </div>
+                    </aura:iteration>
+                </aura:if>
+
+                <aura:if isTrue="{!empty(v.products)}">
+
+                    <p style="text-align: center;"
+                       class="slds-p-around--medium">No any products
+                    </p>
+                </aura:if>
+
+                <div style="width: 100%;" class="slds-text-align--right slds-align-bottom slds-p-bottom--small">
+
+                    <aura:if isTrue="{!not(empty(v.products))}">
+
+                        <p class="slds-text-align--right slds-m-around--small"
+                           style="font-weight: 600; font-size: 16px;">
+                            Total amount:
+                            <lightning:formattedNumber value="{!v.products[0].Order.TotalAmount}"
+                                                       style="currency"
+                                                       currencyCode="EUR"/>
+                        </p>
+
+                        <div>
+                            <lightning:button variant="brand"
+                                              label="Go to basket"
+                                              class="slds-m-right--small my-style-button-green my-hover"
+                                              onclick="{!c.clickGoToBasket}"/>
+                        </div>
+                    </aura:if>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <c:Auto_ShowToast aura:id="toast"/>
+
+</aura:component>
