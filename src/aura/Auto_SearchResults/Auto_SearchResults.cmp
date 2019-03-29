@@ -1,0 +1,63 @@
+<aura:component description="Auto_SearchResults"
+                implements="flexipage:availableForAllPageTypes"
+                controller="Auto_SearchResultsController">
+
+    <aura:attribute name="Name" type="String"/>
+    <aura:attribute name="City" type="String"/>
+    <aura:attribute name="Country" type="String"/>
+    <aura:attribute name="Accounts" type="Account[]"/>
+    <aura:attribute name="ClearFields" type="Boolean" default="false"/>
+    <aura:attribute name="SelectedAccount" type="String"/>
+
+    <aura:handler event="c:Auto_SearchEvnt"
+                  action="{!c.handleSearchDepartment}"/>
+
+    <aura:handler event="c:Auto_DepartmentDeleteEvent"
+                  action="{!c.handleDeleteDepartment}"/>
+
+    <aura:handler event="force:showToast"
+                  action="{!c.toastInfo}"/>
+
+    <aura:registerEvent name="detailsDepartmentEvent"
+                        type="c:Auto_DepartmentResultsEvent"/>
+
+    <aura:registerEvent name="searchToMapEvent"
+                        type="c:Auto_SearchToMapEvent"/>
+
+    <aura:registerEvent name="departmentEditEvent"
+                        type="c:Auto_DepartmentEdit"/>
+
+    <aura:if isTrue="{!!empty(v.Accounts)}">
+        <lightning:card title="{!$Label.c.Auto_Department_search_results}">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer slds-table_fixed-layout">
+                <thead>
+                    <tr class="slds-text-heading_label">
+                        <th scope="col"><div class="slds-truncate" title="{!$Label.c.Auto_Name}">{!$Label.c.Auto_Name}</div></th>
+                        <th scope="col"><div class="slds-truncate" title="{!$Label.c.Auto_City}">{!$Label.c.Auto_City}</div></th>
+                        <th scope="col"><div class="slds-truncate" title="{!$Label.c.Auto_Country}">{!$Label.c.Auto_Country}</div></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <aura:iteration items="{!v.Accounts}"
+                                    var="account"
+                                    indexVar="ind">
+                        <tr class="slds-hint-parent" id="{!ind}" onclick="{!c.clickShowDetails}" data-index="{!ind}">
+                            <td>
+                                <div class="slds-truncate" title="{!account.Name}">{!account.Name}</div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title="{!account.BillingCity}">{!account.BillingCity}</div>
+                            </td>
+                            <td>
+                                <div class="slds-truncate" title="{!account.BillingCountry}">{!account.BillingCountry}</div>
+                            </td>
+                        </tr>
+                    </aura:iteration>
+                </tbody>
+            </table>
+        </lightning:card>
+    </aura:if>
+
+    <c:Auto_Spinner aura:id="spinner"/>
+
+</aura:component>

@@ -1,0 +1,54 @@
+<aura:component description="Auto_SearchDepartment"
+                implements="flexipage:availableForAllPageTypes">
+
+    <aura:attribute name="Name" type="String"/>
+    <aura:attribute name="City" type="String"/>
+    <aura:attribute name="Country" type="String"/>
+
+    <aura:registerEvent name="searchEvent" type="c:Auto_SearchEvnt"/>
+
+    <lightning:card title="{!$Label.c.Auto_Department_search}">
+        <div class="slds-m-left--small">
+            <fieldset class="slds-box slds-theme--default slds-container--small">
+                <form class="slds-form--stacked">
+
+                    <lightning:input aura:id="searchForm"
+                                     label="{!$Label.c.Auto_Name}"
+                                     name="expensename"
+                                     value="{!v.Name}"
+                                     placeholder="{!$Label.c.Auto_Name}"/>
+
+                    <lightning:input aura:id="searchForm"
+                                     label="{!$Label.c.Auto_City}"
+                                     name="expenseamount"
+                                     value="{!v.City}"
+                                     placeholder="{!$Label.c.Auto_City}"/>
+
+                    <lightning:input aura:id="searchForm"
+                                     label="{!$Label.c.Auto_Country}"
+                                     name="expenseclient"
+                                     value="{!v.Country}"
+                                     placeholder="{!$Label.c.Auto_Country}"/>
+
+                    <lightning:button label="{!$Label.c.Auto_Search}"
+                                      class="slds-m-top--medium"
+                                      variant="brand"
+                                      onclick="{!c.clickSearch}"/>
+
+                    <lightning:button label="{!$Label.c.Auto_Clear}"
+                                      class="slds-m-top--medium"
+                                      variant="brand"
+                                      onclick="{!c.clickClear}"/>
+                </form>
+            </fieldset>
+        </div>
+
+        <aura:set attribute="actions">
+            <lightning:button label="{!$Label.c.Auto_New}"
+                              class="slds-m-top--medium"
+                              onclick="{!c.clickNewAccount}"/>
+        </aura:set>
+
+    </lightning:card>
+
+</aura:component>
