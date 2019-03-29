@@ -1,0 +1,2 @@
+<aura:event type="APPLICATION" description="Auto_RemoveFromBasketEvent">
+</aura:event>

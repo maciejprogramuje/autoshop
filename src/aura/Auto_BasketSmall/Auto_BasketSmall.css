@@ -1,0 +1,23 @@
+.THIS .my-style-item{
+    opacity: 1;
+}
+.THIS .my-hover:hover{
+    box-shadow: inset 0 0 5em green;
+    opacity: 0.8;
+    cursor: hand;
+}
+.THIS .my-style-button-green{
+    background-color: #88c651;
+    border-color: #88c651;
+}
+.THIS a{
+    font-size: 14px;
+    color: #88c651;
+    font-weight: 600;
+    opacity: 0.8;
+    cursor: hand;
+}
+.THIS .a:hover{
+    opacity: 1;
+    cursor: hand;
+}

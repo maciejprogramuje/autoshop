@@ -1,0 +1,13 @@
+.THIS .my-style-text-bold{
+    font-size: 14px;
+    font-weight: 600;
+}
+.THIS .my-style-button-green{
+    background-color: rgba(136, 198, 81, 1.0);
+    border-color: rgba(136, 198, 81, 1.0);
+    color: white;
+}
+.THIS .my-style-button-green:hover{
+    background-color: rgba(136, 198, 81, 0.8);
+    border-color: rgba(136, 198, 81, 0.8);
+}
