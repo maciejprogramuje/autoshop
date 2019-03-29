@@ -1,0 +1,42 @@
+<aura:component description="Auto_PricebookItem"
+                implements="flexipage:availableForAllPageTypes"
+                access="global"
+                controller="Auto_PricebookItem">
+
+    <aura:attribute name="pricebookEntry"
+                    type="PricebookEntry"/>
+
+    <aura:attribute name="globalDiscount"
+                    type="Decimal"/>
+
+    <aura:attribute name="product"
+                    type="Product2"/>
+
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{!c.init}"/>
+
+    <lightning:card class="slds-card my-style-card">
+        <div class="slds-grid slds-m-around--small">
+            <div class="slds-col slds-size--4-of-12">
+                {!v.product.Name}
+            </div>
+
+            <div class="slds-col slds-size--2-of-12">
+                standard price: {!v.pricebookEntry.UnitPrice}
+            </div>
+
+            <div class="slds-col slds-size--2-of-12">
+                discount: {!v.globalDiscount}
+            </div>
+
+            <div class="slds-col slds-size--2-of-12">
+                with discount: {!v.pricebookEntry.UnitPrice}
+            </div>
+
+            <div class="slds-col slds-size--2-of-12">
+                {!v.pricebookEntry.IsActive}
+            </div>
+        </div>
+    </lightning:card>
+</aura:component>

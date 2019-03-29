@@ -1,0 +1,45 @@
+<aura:component description="Auto_Pricebooks"
+                implements="flexipage:availableForAllPageTypes,force:hasRecordId"
+                access="global"
+                controller="Auto_Pricebooks">
+
+    <force:recordData aura:id="recordLoader"
+                      recordId="{!v.recordId}"
+                      layoutType="FULL"
+                      targetFields="{!v.pricebook}"
+                      targetError="{!v.recordError}"/>
+
+    <aura:attribute name="recordId"
+                    type="String"/>
+
+    <aura:attribute name="pricebook"
+                    type="Object"/>
+
+    <aura:attribute name="recordError"
+                    type="String"/>
+
+    <aura:attribute name="pricebookEntries"
+                    type="List"/>
+
+    <aura:attribute name="isOpenConfirmDialog"
+                    type="Boolean"
+                    default="false"/>
+
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{!c.init}"/>
+
+    <lightning:card title="Pricebooks" class="slds-card">
+
+        <!--<p>{!v.pricebook.Id}</p>-->
+
+        <aura:iteration items="{!v.pricebookEntries}"
+                        var="pricebookEntry">
+
+            <c:Auto_PricebookItem
+                    pricebookEntry="{!pricebookEntry}"
+                    globalDiscount="{!v.pricebook.Discount_Global__c}"/>
+        </aura:iteration>
+
+    </lightning:card>
+</aura:component>
