@@ -77,4 +77,6 @@
         <div style="clear: both;"></div>
     </div>
 
+    <c:Auto_ShowToast aura:id="toast"/>
+
 </aura:component>
