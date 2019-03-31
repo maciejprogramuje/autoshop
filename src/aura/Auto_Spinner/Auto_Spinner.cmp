@@ -10,5 +10,4 @@
             <lightning:spinner alternativeText="{!$Label.c.Auto_Loading}" size="large"/>
         </div>
     </aura:if>
-    
 </aura:component>
