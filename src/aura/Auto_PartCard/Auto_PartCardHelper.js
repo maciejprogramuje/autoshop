@@ -65,15 +65,7 @@
                 let addToBasketEvent = $A.get("e.c:Auto_AddToBasketEvent");
                 addToBasketEvent.fire();
 
-                let toastEvent = $A.get("e.force:showToast");
-                if (toastEvent) {
-                    toastEvent.setParams({
-                        "title": "Product has been added",
-                        "message": "Product has been added to basket successfully to basket.",
-                        "type": "success"
-                    });
-                    toastEvent.fire();
-                }
+                this.doShowToast(component, 'Product has been added to basket successfully to basket.', 'success', 'Product has been added');
             } else {
                 this.doShowToast(component, response.getErrors()[0].message, 'Error' , 'Error');
             }
