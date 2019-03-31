@@ -1,0 +1,82 @@
+<aura:component description="Auto_PartCard"
+                implements="forceCommunity:availableForAllPageTypes"
+                access="global"
+                controller="Auto_PartCard">
+
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="partProduct" type="Product2"/>
+    <aura:attribute name="partPricebookEntries" type="List"/>
+    <aura:attribute name="partStandardPrice" type="Decimal"/>
+
+    <aura:attribute name="imagesURLs" type="List"/>
+
+    <aura:registerEvent name="addToBasketEvent"
+                        type="c:Auto_AddToBasketEvent"/>
+
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{!c.init}"/>
+
+    <div class="slds-text-heading_medium slds-text-align_center slds-m-around--large">
+        <p>Part Details</p>
+    </div>
+
+    <div class="slds-p-around_small my-style-item my-hover" role="banner">
+        <div style="text-align: center; width: 25%; float: left;">
+
+            <aura:if isTrue="{!not(empty(v.imagesURLs))}">
+                <lightning:carousel class="imageView noContent"
+                                    disableAutoScroll="false">
+
+                    <aura:iteration items="{!v.imagesURLs}"
+                                    var="imageURL">
+
+                        <lightning:carouselImage src="{!imageURL}"
+                                                 alternativeText="This is a card">
+                        </lightning:carouselImage>
+                    </aura:iteration>
+                </lightning:carousel>
+            </aura:if>
+
+            <aura:if isTrue="{!empty(v.imagesURLs)}">
+                <div style="{!'background-image:url(' + $Resource.Auto_No_Photo + '); background-repeat: no-repeat;  width: 181px; height: 181px; display: inline-block;'}"></div>
+            </aura:if>
+
+            <div>
+                <lightning:button variant="brand"
+                                  label="Add to basket"
+                                  class="slds-m-around--small my-style-button"
+                                  onclick="{!c.clickAddToBasket}"/>
+            </div>
+        </div>
+
+        <div class="slds-p-left--x-large"
+             style="float: left; width: 75%;">
+
+            <p class="slds-text-heading--large slds-truncate">{!v.partProduct.Name}</p>
+
+            <p class="slds-text-heading--medium slds-m-around--small">{!v.partProduct.Family}</p>
+
+            <p class="slds-text-heading--medium slds-m-around--small">Product Code: {!v.partProduct.ProductCode}</p>
+
+            <p class="slds-text-heading--medium slds-m-around--small">
+
+                <span class="my-style-price">
+                    Lowest price:
+                    <lightning:formattedNumber value="{!v.partPricebookEntries[0].UnitPrice}" style="currency" currencyCode="EUR"/>
+                </span>
+
+                <s class="slds-text-heading--medium slds-m-around--small my-style-price-standard">Standard price:
+                    <lightning:formattedNumber value="{!v.partStandardPrice}" style="currency" currencyCode="EUR"/>
+                </s>
+            </p>
+
+            <p class="slds-text-heading--small slds-m-left--small slds-m-top--medium">{!v.partProduct.Description}</p>
+        </div>
+
+        <div style="clear: both;"></div>
+    </div>
+
+    <c:Auto_ShowToast aura:id="toast"/>
+
+</aura:component>
