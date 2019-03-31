@@ -89,25 +89,9 @@
         }
 
         if ($A.util.isUndefinedOrNull(priceFrom) || $A.util.isUndefinedOrNull(priceTo)) {
-            let toastEvent = $A.get("e.force:showToast");
-            if (toastEvent) {
-                toastEvent.setParams({
-                    "title": "Not correct prices",
-                    "message": "Price not defined. Change it, please.",
-                    "type": "warning"
-                });
-                toastEvent.fire();
-            }
+            this.doShowToast(component, 'Price not defined. Change it, please.', 'warning' , 'Not correct prices');
         } else if(priceFrom > priceTo) {
-            let toastEvent = $A.get("e.force:showToast");
-            if (toastEvent) {
-                toastEvent.setParams({
-                    "title": "Not correct prices",
-                    "message": "Price from is higher than price to. Change it, please.",
-                    "type": "warning"
-                });
-                toastEvent.fire();
-            }
+            this.doShowToast(component, 'Price from is higher than price to. Change it, please.', 'warning' , 'Not correct prices');
         } else {
             let action = component.get("c.useFilters");
             action.setParam("ids", ids);
