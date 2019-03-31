@@ -24,6 +24,8 @@
     <div class="slds-p-around_small my-style-item my-hover" role="banner">
         <div style="text-align: center; width: 25%; float: left;">
 
+            a3
+
             <aura:if isTrue="{!not(empty(v.imagesURLs))}">
                 <lightning:carousel class="imageView noContent"
                                     disableAutoScroll="false">

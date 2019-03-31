@@ -1,0 +1,144 @@
+<aura:component description="Auto_SearchPartsResults"
+                implements="forceCommunity:availableForAllPageTypes"
+                access="global"
+                controller="Auto_SearchPartsResults">
+
+    <aura:attribute type="List"
+                    name="recordIds"/>
+
+    <aura:attribute type="List"
+                    name="tempRecordIds"/>
+
+    <aura:attribute type="List"
+                    name="productsFamilies"/>
+
+    <aura:attribute type="String"
+                    name="productFamily"/>
+
+    <aura:attribute type="String"
+                    name="tempSortBy"/>
+
+    <aura:attribute type="Integer"
+                    name="priceFrom"/>
+
+    <aura:attribute type="Integer"
+                    name="priceTo"/>
+
+    <aura:handler name="init"
+                  value="{!this}"
+                  action="{!c.init}"/>
+
+    <div class="slds-text-heading_medium slds-text-align_center slds-m-around--large">
+        <p>Search Results</p>
+    </div>
+
+    <div class="slds-text-heading_small slds-text-align_center slds-m-top--large">
+
+
+        a2a2
+
+        <p class="slds-button slds-m-right--small" style="color: black;">Sort by:</p>
+
+        <lightning:button variant="brand"
+                          label="Price: Low to High"
+                          class="slds-m-around--small"
+                          onclick="{!c.clickSortPriceLow}"/>
+
+        <lightning:button variant="brand"
+                          label="Price: High to Low"
+                          class="slds-m-around--small"
+                          onclick="{!c.clickSortPriceHigh}"/>
+
+        <lightning:button variant="brand"
+                          label="Name: A to Z"
+                          class="slds-m-around--small"
+                          onclick="{!c.clickSortNameA}"/>
+
+        <lightning:button variant="brand"
+                          label="Name: Z to A"
+                          class="slds-m-around--small"
+                          onclick="{!c.clickSortNameZ}"/>
+    </div>
+
+
+    <div class="slds-text-heading_small slds-text-align_center slds-m-bottom--large">
+
+        <p class="slds-button slds-m-right--small" style="color: black;">Choose product family</p>
+
+        <lightning:select aura:id="select"
+                          name="select"
+                          label="test"
+                          class="slds-button slds-m-top--small my-style-no-label"
+                          value="{!v.productFamily}"
+                          onchange="{!c.clickChangeFamily}">
+
+            <aura:iteration items="{!v.productsFamilies}" var="option">
+                <option text="{!option}"
+                        value="{!option.value}"
+                        selected="{!option eq v.productFamily}">
+                </option>
+            </aura:iteration>
+
+        </lightning:select>
+    </div>
+
+
+    <div class="slds-text-heading_small slds-m-bottom--large slds-grid slds-align-content-center">
+
+        <div class="slds-col slds-size--1-of-10">
+            <span class="slds-button slds-m-right--small" style="color: black;">Choose price: from</span>
+        </div>
+
+        <div class="slds-col slds-size--1-of-10">
+            <lightning:input label="text-input-price-min"
+                             placeholder="min"
+                             type="number"
+                             value="{!v.priceFrom}"
+                             min="0"
+                             variant="label-hidden"/>
+        </div>
+
+        <div class="slds-col slds-size--1-of-10">
+            <span class="slds-button slds-m-left--small slds-m-right--small" style="color: black;">to</span>
+        </div>
+
+        <div class="slds-col slds-size--1-of-10">
+            <lightning:input label="text-input-price-max"
+                             placeholder="max"
+                             type="number"
+                             value="{!v.priceTo}"
+                             min="0"
+                             variant="label-hidden"/>
+        </div>
+
+        <div class="slds-col slds-size--1-of-10">
+            <lightning:button variant="brand"
+                              label="Check price"
+                              class="slds-m-horizontal--small"
+                              onclick="{!c.clickCheckPrice}"/>
+        </div>
+    </div>
+
+
+    <aura:if isTrue="{!empty(v.recordIds)}">
+        <div class="slds-text-heading--large slds-text-align_center slds-m-around--xx-large">
+            <p>No Any Search Results</p>
+        </div>
+    </aura:if>
+
+    <div class="c-container">
+        <lightning:layout verticalAlign="stretch"
+                          horizontalAlign="space"
+                          multipleRows="true">
+
+            <aura:iteration items="{!v.recordIds}"
+                            var="id">
+
+                <c:Auto_SearchPartsResultsItem recordId="{!id}"/>
+            </aura:iteration>
+        </lightning:layout>
+    </div>
+
+    <c:Auto_ShowToast aura:id="toast"/>
+
+</aura:component>
