@@ -24,15 +24,7 @@
                let makeOrderEvent = $A.get("e.c:Auto_MakeOrderEvent");
                makeOrderEvent.fire();
 
-               let toastEvent = $A.get("e.force:showToast");
-               if (toastEvent) {
-                   toastEvent.setParams({
-                       "title": "Order successful",
-                       "message": "You has been made an order successfully.",
-                       "type": "success"
-                   });
-                   toastEvent.fire();
-               }
+               this.doShowToast(component, 'You has been made an order successfully.', 'success' , 'Order successful');
 
                component.set("v.isButtonMakeOrderVisible", false);
             } else {

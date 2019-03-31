@@ -9,15 +9,7 @@
                 let removeFromBasketEvent = $A.get("e.c:Auto_RemoveFromBasketEvent");
                 removeFromBasketEvent.fire();
 
-                let toastEvent = $A.get("e.force:showToast");
-                if (toastEvent) {
-                    toastEvent.setParams({
-                        "title": "Remove successful",
-                        "message": "Product has been removed successfully.",
-                        "type": "success"
-                    });
-                    toastEvent.fire();
-                }
+                this.doShowToast(component, 'Product has been removed successfully.', 'success' , 'Remove successful');
             } else {
                 this.doShowToast(component, response.getErrors()[0].message, 'Error' , 'Error');
             }
@@ -53,7 +45,6 @@
                 let removeFromBasketEvent = $A.get("e.c:Auto_RemoveFromBasketEvent");
                 removeFromBasketEvent.fire();
             } else {
-                console.log("changeQuantity >> ERROR");
                 this.doShowToast(component, response.getErrors()[0].message, 'Error' , 'Error');
             }
         });
